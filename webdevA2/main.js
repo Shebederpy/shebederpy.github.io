@@ -711,3 +711,39 @@ if (resetHuntBtn) resetHuntBtn.addEventListener("click", resetHunt);
 // Initialize display
 updateGameDisplay();
 
+
+// === DESKTOP FULL-SCREEN FUNCTIONALITY (Week 14 - Lecturer Code) ===
+
+// Get full-screen buttons (exact lecturer pattern)
+const btnFS = document.querySelector("#btnFS");
+const btnWS = document.querySelector("#btnWS");
+
+// Add event listeners (exact lecturer pattern)
+btnFS.addEventListener("click", enterFullscreen);
+btnWS.addEventListener("click", exitFullscreen);
+
+// Enter full-screen function (exact lecturer code with full browser support)
+function enterFullscreen() { // must be called by user generated event
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        document.documentElement.msRequestFullscreen();
+    }
+}
+
+// Exit full-screen function (exact lecturer code with full browser support)
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { // Firefox
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { // Chrome, Safari, and Opera
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { // IE/Edge
+        document.msExitFullscreen();
+    }
+}

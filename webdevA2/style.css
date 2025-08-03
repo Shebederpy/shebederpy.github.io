@@ -328,12 +328,69 @@ form {
     text-align: left;
     display: inline-block;
     margin: 20px 0;
+    max-width: 500px;
 }
 
 form p {
     font-weight: bold;
-    margin-bottom: 15px;
-    text-align: center;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    text-align: left;
+    color: #2d5016;
+}
+
+input[type="text"],
+input[type="email"], 
+input[type="number"] {
+    padding: 8px;
+    border: 2px solid #e8f5e8;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus {
+    border-color: #4a7c59;
+    outline: none;
+}
+
+input[type="range"] {
+    width: 200px;
+    margin: 10px 0;
+}
+
+select {
+    padding: 8px;
+    border: 2px solid #e8f5e8;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 250px;
+    margin-bottom: 10px;
+    background: white;
+}
+
+select:focus {
+    border-color: #4a7c59;
+    outline: none;
+}
+
+/* Style for textarea */
+textarea {
+    padding: 8px;
+    border: 2px solid #e8f5e8;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+textarea:focus {
+    border-color: #4a7c59;
+    outline: none;
 }
 
 form label {
@@ -342,9 +399,11 @@ form label {
     margin-bottom: 8px;
     font-size: 1.1em;
     cursor: pointer;
+    font-weight: normal;
 }
 
-form input[type="radio"] {
+form input[type="radio"],
+form input[type="checkbox"] {
     margin-right: 8px;
     transform: scale(1.2);
 }
@@ -394,10 +453,9 @@ form button {
     justify-content: center;
 }
 
-/* DESKTOP - IMAGE EXPANSION EFFECT */
+/* IMAGE "zoom" EFFECT */
 .image-overlay-container.zoomed {
-    /* Expand the entire container */
-    max-width: 900px; /* Bigger than original 600px */
+    max-width: 900px;
     width: 90vw; /* Take up more screen width */
     transform: scale(1.1); /* Slight overall growth */
     z-index: 100; /* Bring to front */
@@ -456,7 +514,6 @@ form button {
     font-weight: bold;
 }
 
-/* === REACTION TIME GAME CSS === */
 /* === CROCODILE HUNTER GAME STYLES === */
 
 .game-area {
@@ -891,6 +948,27 @@ form button {
     font-size: 0.95em;
 }
 
+
+/* === QR CODE FOOTER === */
+/* QR Code in footer */
+.qr-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.qr-footer img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 5px;
+}
+
+.qr-footer p {
+    font-size: 0.8em;
+    color: #ccc;
+    margin: 0;
+}
+
+
 /* === RESPONSIVE DESIGN (Assignment Requirement: 800px breakpoint) === */
 @media (max-width: 800px) {
     .navigation h1 {
@@ -1157,5 +1235,15 @@ form button {
     
     .sound-facts {
         padding: 20px 15px;
+    }
+
+    /* Hide QR code on mobile (assignment requirement) */
+    .qr-footer {
+        display: none;
+    }
+
+    /* Hide fullscreen and widescreen buttons on mobile */
+      #btnFS, #btnWS {
+        display: none !important;
     }
 }
