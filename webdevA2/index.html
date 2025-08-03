@@ -2,52 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="icon" type="image/jpeg" href="images/CrocApp.jpg">
-<link rel="manifest" href="manifest.json" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/jpeg" href="images/CrocApp.jpg">
+    <link rel="manifest" href="manifest.json" />
     <title>All About Crocodiles</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation Menu -->
+    <!-- Main navigation with hamburger menu for mobile -->
     <nav class="navigation">
         <h1>🐊 Crocodile Gaming</h1>
         
-        <!-- Hamburger icon for mobile (exactly like lecture) -->
+        <!-- Mobile hamburger menu button -->
         <button id="hamIcon">☰ Menu</button>
         
-        <!-- Navigation buttons (will be hidden on mobile) -->
+        <!-- Navigation menu with page links -->
         <ul class="nav-buttons">
-            <ul class="nav-buttons">
-                <li><button id="intro-btn" class="nav-btn active">Introduction</button></li>
-                <li><button id="habitat-btn" class="nav-btn">Habitats</button></li>
-                <li><button id="diet-btn" class="nav-btn">Diet</button></li>
-                <li><button id="game-btn" class="nav-btn">Games ++</button></li>
-                <li><button id="btnFS" class="nav-btn">Fullscreen</button></li>
-                <li><button id="btnWS" class="nav-btn">Exit Fullscreen</button></li>
-            </ul>
+            <li><button id="intro-btn" class="nav-btn active">Introduction</button></li>
+            <li><button id="habitat-btn" class="nav-btn">Habitats</button></li>
+            <li><button id="diet-btn" class="nav-btn">Diet</button></li>
+            <li><button id="game-btn" class="nav-btn">Games ++</button></li>
+            <li><button id="btnFS" class="nav-btn">Fullscreen</button></li>
+            <li><button id="btnWS" class="nav-btn">Exit Fullscreen</button></li>
         </ul>
     </nav>
 
-    <!-- Main Content Area -->
+    <!-- Main content container -->
     <main class="content">
         
-        <!-- INTRO PAGE (Currently Visible) -->
+        <!-- INTRODUCTION PAGE - Shows by default -->
         <section id="intro-page" class="page active-page">
             <div class="page-header">
                 <h2>What Are Crocodiles?</h2>
                 
-                <!-- Fixed image container with proper IDs -->
+                <!-- Main image with clickable overlay -->
                 <div class="image-overlay-container" id="intro-image-container">
                     <img src="images/IntroMainCrocBG.jpg" alt="Large crocodile in water" 
-                        class="main-image-zoomable" id="intro-main-image">
+                         class="main-image-zoomable" id="intro-main-image">
                     
-                    <!-- Text overlay (hidden by default) -->
+                    <!-- Hidden overlay that appears when image is clicked -->
                     <div class="image-overlay">
-                       
                         <div class="overlay-content">
                             <h3>What's up, this is my boy the Croc! 🐊</h3>
                             <p>Often mistaken for an alligator, he's a <strong>ferocious carnivore</strong> that evolved from ancient archosaurs over 200 million years ago!</p>
@@ -57,9 +53,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             
+            <!-- Grid of information cards -->
             <div class="content-grid">
                 <div class="info-card" id="card1">
                    <h3><span class="sprite-icon sprite-dinosaur"></span>Ancient Survivors</h3>
@@ -82,6 +78,7 @@
                 </div>
             </div>
             
+            <!-- Fun facts section -->
             <div class="fun-facts">
                 <h3>🤔 Did You Know?</h3>
                 <ul>
@@ -92,23 +89,24 @@
                 </ul>
             </div>
             
+            <!-- Call to action section -->
             <div class="next-steps">
                 <p>Ready to learn more? Explore where crocodiles live, what they eat, and test your knowledge with our sound quiz!</p>
                 <button class="cta-button" id="explore-btn">Start Exploring →</button>
             </div>
         </section>
 
-        <!-- HABITATS PAGE -->
-      <section id="habitat-page" class="page">
+        <!-- HABITATS PAGE - Hidden by default -->
+        <section id="habitat-page" class="page">
             <div class="page-header">
                 <h2>Where Do Crocodiles Live?</h2>
                 
-                <!-- Updated image container with overlay functionality -->
+                <!-- Habitat image with clickable overlay -->
                 <div class="image-overlay-container" id="habitat-image-container">
                     <img src="images/CrocInSwamp.jpg" alt="Crocodile in swamp habitat" 
-                        class="main-image-zoomable" id="habitat-main-image">
+                         class="main-image-zoomable" id="habitat-main-image">
                     
-                    <!-- Text overlay for habitat page -->
+                    <!-- Habitat overlay content -->
                     <div class="image-overlay">
                         <div class="overlay-content">
                             <h3>Welcome to the Crocodile's Home! 🏞️</h3>
@@ -122,7 +120,7 @@
                 </div>
             </div>
             
-            <!-- Rest of habitat page content stays the same -->
+            <!-- Habitat information cards -->
             <div class="content-grid">
                 <div class="info-card">
                     <h3>🏞️ Swamps & Marshes</h3>
@@ -145,6 +143,7 @@
                 </div>
             </div>
             
+            <!-- Global distribution facts -->
             <div class="fun-facts">
                 <h3>🗺️ Where in the World?</h3>
                 <p><strong>Crocodiles live on every continent except Europe and Antarctica!</strong></p>
@@ -157,136 +156,138 @@
             </div>
         </section>
 
-        <!-- DIET PAGE -->
+        <!-- DIET PAGE - Hidden by default -->
         <section id="diet-page" class="page">
-    <div class="page-header">
-        <h2>What Do Crocodiles Eat?</h2>
-        
-        <!-- Updated image container with overlay functionality -->
-        <div class="image-overlay-container" id="diet-image-container">
-            <img src="images/CrocEatFish.jpg" alt="Crocodile catching fish" 
-                class="main-image-zoomable" id="diet-main-image">
-            
-            <!-- Text overlay for diet page -->
-            <div class="image-overlay">
-                <div class="overlay-content">
-                    <h3>Dinnertime for the Ultimate Predator! 🍽️</h3>
-                    <p>You're looking at a <strong>apex predator in action</strong>! Crocodiles have perfected the art of hunting over millions of years.</p>
-                    <p>That <strong>death roll technique</strong> isn't just for show - it helps them tear off chunks of meat and disorient their prey. Physics meets prehistoric power!</p>
-                    <p>Crocodiles have a <strong>four-chambered stomach</strong> like cows! They can digest bones, horns, and hooves thanks to super strong stomach acid.</p>
-                    <p>Here's wild: They can survive up to <strong>one year without eating</strong> by slowing their metabolism. Try doing that on your diet!</p>
-                    <p class="fun-note">Click anywhere to close! 🐟</p>
+            <div class="page-header">
+                <h2>What Do Crocodiles Eat?</h2>
+                
+                <!-- Diet image with clickable overlay -->
+                <div class="image-overlay-container" id="diet-image-container">
+                    <img src="images/CrocEatFish.jpg" alt="Crocodile catching fish" 
+                         class="main-image-zoomable" id="diet-main-image">
+                    
+                    <!-- Diet overlay content -->
+                    <div class="image-overlay">
+                        <div class="overlay-content">
+                            <h3>Dinnertime for the Ultimate Predator! 🍽️</h3>
+                            <p>You're looking at a <strong>apex predator in action</strong>! Crocodiles have perfected the art of hunting over millions of years.</p>
+                            <p>That <strong>death roll technique</strong> isn't just for show - it helps them tear off chunks of meat and disorient their prey. Physics meets prehistoric power!</p>
+                            <p>Crocodiles have a <strong>four-chambered stomach</strong> like cows! They can digest bones, horns, and hooves thanks to super strong stomach acid.</p>
+                            <p>Here's wild: They can survive up to <strong>one year without eating</strong> by slowing their metabolism. Try doing that on your diet!</p>
+                            <p class="fun-note">Click anywhere to close! 🐟</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- Rest of diet page content stays the same -->
-        <div class="content-grid">
-            <div class="info-card">
-                <h3>🐟 Fish & Aquatic Animals</h3>
-                <p>Fish make up most of a crocodile's diet. They also eat <strong>frogs, turtles, and water birds</strong> that come to drink at the water's edge.</p>
+            
+            <!-- Diet information cards -->
+            <div class="content-grid">
+                <div class="info-card">
+                    <h3>🐟 Fish & Aquatic Animals</h3>
+                    <p>Fish make up most of a crocodile's diet. They also eat <strong>frogs, turtles, and water birds</strong> that come to drink at the water's edge.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🦌 Large Mammals</h3>
+                    <p>Big crocodiles can take down <strong>deer, wild boar, and even buffalo</strong>! They use their powerful jaws and death roll technique.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🦅 Birds & Reptiles</h3>
+                    <p>Crocodiles are opportunistic hunters. They'll eat <strong>water birds, snakes, and even other crocodiles</strong> if they get the chance.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>⏰ Patient Hunters</h3>
+                    <p>Crocodiles can wait <strong>hours without moving</strong>, then explode into action when prey comes close. They're ambush predators!</p>
+                </div>
             </div>
             
-            <div class="info-card">
-                <h3>🦌 Large Mammals</h3>
-                <p>Big crocodiles can take down <strong>deer, wild boar, and even buffalo</strong>! They use their powerful jaws and death roll technique.</p>
+            <!-- Hunting facts -->
+            <div class="fun-facts">
+                <h3>🦷 Hunting Facts</h3>
+                <ul>
+                    <li>Crocodiles can go months without eating if needed</li>
+                    <li>They swallow stones to help digest food in their stomachs</li>
+                    <li>Baby crocodiles eat insects, small fish, and crustaceans</li>
+                    <li>Their bite force is stronger than a T-Rex!</li>
+                </ul>
             </div>
-            
-            <div class="info-card">
-                <h3>🦅 Birds & Reptiles</h3>
-                <p>Crocodiles are opportunistic hunters. They'll eat <strong>water birds, snakes, and even other crocodiles</strong> if they get the chance.</p>
-            </div>
-            
-            <div class="info-card">
-                <h3>⏰ Patient Hunters</h3>
-                <p>Crocodiles can wait <strong>hours without moving</strong>, then explode into action when prey comes close. They're ambush predators!</p>
-            </div>
-        </div>
+        </section>
         
-        <div class="fun-facts">
-            <h3>🦷 Hunting Facts</h3>
-            <ul>
-                <li>Crocodiles can go months without eating if needed</li>
-                <li>They swallow stones to help digest food in their stomachs</li>
-                <li>Baby crocodiles eat insects, small fish, and crustaceans</li>
-                <li>Their bite force is stronger than a T-Rex!</li>
-            </ul>
-        </div>
-    </section>
-        
-        <!-- MINI-GAME PAGE -->
-       <section id="game-page" class="page">
-           <!-- Replace your existing reaction game section with this enhanced Crocodile Hunter -->
-<div class="page-header">
-    <h2>🐊 Crocodile Hunter Challenge</h2>
-    <p>Crocodiles are ambush predators! Help the crocodile catch moving prey before they escape!</p>
-</div>
+        <!-- GAMES PAGE - Hidden by default -->
+        <section id="game-page" class="page">
+            <!-- Crocodile Hunter Game -->
+            <div class="page-header">
+                <h2>🐊 Crocodile Hunter Challenge</h2>
+                <p>Crocodiles are ambush predators! Help the crocodile catch moving prey before they escape!</p>
+            </div>
 
-<!-- Game Area -->
-<div class="game-area">
-    <div class="game-status">
-        <p id="game-instruction">Click "Start Hunt" to begin your crocodile hunting challenge!</p>
-        <div class="game-stats">
-            <p id="fish-caught">Fish Caught: 0/5</p>
-            <p id="fish-missed">Fish Missed: 0</p>
-            <p id="game-timer">Time: 30s</p>
-        </div>
-    </div>
-    
-    <!-- Hunting Ground (where prey will move across) -->
-    <div class="hunting-ground" id="hunting-ground">
-        <div class="game-instructions-overlay">
-            <p>🎯 Click the moving fish before they escape!</p>
-            <p>🐟 Fish will swim across the water</p>
-            <p>⏰ Catch 5 fish before time runs out!</p>
-        </div>
-        
-        <!-- Prey will be spawned here dynamically -->
-    </div>
-    
-    <!-- Game Controls -->
-    <div class="game-controls">
-        <button class="cta-button" id="start-hunt">🐊 Start Hunt</button>
-        <button class="cta-button" id="reset-hunt" style="display: none;">🔄 Hunt Again</button>
-    </div>
-    
-    <!-- Results Display -->
-    <div class="game-results" id="hunt-results" style="display: none;">
-        <h3>🎯 Hunt Complete!</h3>
-        <div class="results-grid">
-            <div class="result-item">
-                <span class="result-icon">🎯</span>
-                <p id="final-caught">Fish Caught: 0/5</p>
+            <!-- Game area container -->
+            <div class="game-area">
+                <!-- Game status and statistics -->
+                <div class="game-status">
+                    <p id="game-instruction">Click "Start Hunt" to begin your crocodile hunting challenge!</p>
+                    <div class="game-stats">
+                        <p id="fish-caught">Fish Caught: 0/5</p>
+                        <p id="fish-missed">Fish Missed: 0</p>
+                        <p id="game-timer">Time: 30s</p>
+                    </div>
+                </div>
+                
+                <!-- Game playing area where fish move -->
+                <div class="hunting-ground" id="hunting-ground">
+                    <div class="game-instructions-overlay">
+                        <p>🎯 Click the moving fish before they escape!</p>
+                        <p>🐟 Fish will swim across the water</p>
+                        <p>⏰ Catch 5 fish before time runs out!</p>
+                    </div>
+                    <!-- Fish elements are created here by JavaScript -->
+                </div>
+                
+                <!-- Game control buttons -->
+                <div class="game-controls">
+                    <button class="cta-button" id="start-hunt">🐊 Start Hunt</button>
+                    <button class="cta-button" id="reset-hunt" style="display: none;">🔄 Hunt Again</button>
+                </div>
+                
+                <!-- Game results section -->
+                <div class="game-results" id="hunt-results" style="display: none;">
+                    <h3>🎯 Hunt Complete!</h3>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <span class="result-icon">🎯</span>
+                            <p id="final-caught">Fish Caught: 0/5</p>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-icon">💨</span>
+                            <p id="final-missed">Fish Missed: 0</p>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-icon">⚡</span>
+                            <p id="hunting-rating">Hunting Skill: Beginner</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Educational facts about real crocodile hunting -->
+                    <div class="crocodile-facts">
+                        <h4>🐊 Real Crocodile Hunting Facts:</h4>
+                        <ul>
+                            <li><strong>Success Rate:</strong> Wild crocodiles catch prey 25% of the time</li>
+                            <li><strong>Patience:</strong> They can wait motionless for hours</li>
+                            <li><strong>Speed:</strong> Strike in 50-60 milliseconds when prey appears</li>
+                            <li><strong>Strategy:</strong> Ambush predators that rely on surprise</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="result-item">
-                <span class="result-icon">💨</span>
-                <p id="final-missed">Fish Missed: 0</p>
-            </div>
-            <div class="result-item">
-                <span class="result-icon">⚡</span>
-                <p id="hunting-rating">Hunting Skill: Beginner</p>
-            </div>
-        </div>
-        
-        <div class="crocodile-facts">
-            <h4>🐊 Real Crocodile Hunting Facts:</h4>
-            <ul>
-                <li><strong>Success Rate:</strong> Wild crocodiles catch prey 25% of the time</li>
-                <li><strong>Patience:</strong> They can wait motionless for hours</li>
-                <li><strong>Speed:</strong> Strike in 50-60 milliseconds when prey appears</li>
-                <li><strong>Strategy:</strong> Ambush predators that rely on surprise</li>
-            </ul>
-        </div>
-    </div>
-</div>
             
-            <!-- Croc Sounds -->
+            <!-- Crocodile Sounds Section -->
             <div class="croc-sounds-section">
                 <h3>🔊 How Do Crocodiles Sound?</h3>
                 <p class="sounds-intro">Crocodiles are surprisingly vocal! They make different sounds to communicate with each other. Listen to these authentic crocodile sounds:</p>
                 
-                <!-- Sound Cards Layout -->
+                <!-- Sound cards with play buttons -->
                 <div class="sound-cards-grid">
                     <div class="sound-card">
                         <div class="sound-icon">🐊</div>
@@ -319,7 +320,7 @@
                     </div>
                 </div>
                 
-                <!-- Fun Sound Facts -->
+                <!-- Sound facts grid -->
                 <div class="sound-facts">
                     <h4>🎵 Cool Sound Facts</h4>
                     <div class="facts-grid">
@@ -342,7 +343,7 @@
                     </div>
                 </div>
                 
-                <!-- Interactive Sound Counter -->
+                <!-- Sound experience tracker -->
                 <div class="sound-experience">
                     <div class="experience-counter">
                         <h4>🎧 Your Sound Experience</h4>
@@ -358,12 +359,12 @@
                 </div>
             </div>
 
-           <!-- Simple form -->
+            <!-- Feedback Form Section -->
             <div class="fun-facts">
                 <h3>📝 Did You Learn Something New?</h3>
                 <form id="feedback-form">
                     
-                    <!-- Original Radio Buttons -->
+                    <!-- Radio button rating -->
                     <p>Rate this learning experience:</p>
                     <input type="radio" id="great" name="rating" value="great">
                     <label for="great">🐊 Great!</label><br>
@@ -374,23 +375,23 @@
                     <input type="radio" id="okay" name="rating" value="okay">
                     <label for="okay">👌 Okay</label><br>
                     
-                    <!-- Text Input -->
+                    <!-- Text input for name -->
                     <p>Your Name (optional):</p>
                     <input type="text" id="visitor-name" name="name" placeholder="Enter your name"><br>
                     
-                    <!-- Email Input -->
+                    <!-- Email input -->
                     <p>Email (optional):</p>
                     <input type="email" id="visitor-email" name="email" placeholder="your.email@example.com"><br>
                     
-                    <!-- Number Input -->
+                    <!-- Number input for age -->
                     <p>Your Age (optional):</p>
                     <input type="number" id="visitor-age" name="age" min="5" max="100" placeholder="25"><br>
                     
-                    <!-- Range Slider -->
+                    <!-- Range slider for knowledge level -->
                     <p>How much did you know about crocodiles before? (1-5):</p>
                     <input type="range" id="knowledge-level" name="knowledge" min="1" max="5" value="3"><br>
                     
-                    <!-- Checkboxes -->
+                    <!-- Checkboxes for features -->
                     <p>Which features did you like? (Check all that apply):</p>
                     <input type="checkbox" id="sounds" name="features" value="sounds">
                     <label for="sounds">🔊 Crocodile Sounds</label><br>
@@ -401,7 +402,7 @@
                     <input type="checkbox" id="facts" name="features" value="facts">
                     <label for="facts">📚 Fun Facts</label><br>
                     
-                    <!-- Dropdown -->
+                    <!-- Dropdown selection -->
                     <p>How did you find this site?</p>
                     <select id="source" name="source">
                         <option value="">Select an option...</option>
@@ -411,25 +412,27 @@
                         <option value="random">Found by Accident</option>
                     </select><br>
                     
-                    <!-- Textarea -->
+                    <!-- Textarea for comments -->
                     <p>Any comments?</p>
                     <textarea id="comments" name="comments" rows="3" cols="40" placeholder="Tell us what you think..."></textarea><br>
                     
+                    <!-- Submit button -->
                     <button type="submit" class="cta-button">Submit Feedback</button>
                 </form>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer with QR code -->
     <footer>
         <p>Educational content about crocodiles | Created for WebDev Assignment2</p>
-            <div class="qr-footer">
-                <img src="images/QR.png" alt="QR Code for mobile site">
-                <p>Scan to view on mobile</p>
-            </div>
+        <div class="qr-footer">
+            <img src="images/QR.png" alt="QR Code for mobile site">
+            <p>Scan to view on mobile</p>
+        </div>
     </footer>
 
+    <!-- JavaScript file link -->
     <script src="main.js"></script>
 </body>
 </html>

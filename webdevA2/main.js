@@ -1,52 +1,53 @@
-// main.js - Clean JavaScript for Crocodile Education App
+// main.js - JavaScript for Crocodile Education App
 
+// === PAGE MANAGEMENT SYSTEM ===
 
-
-// Target all navigation buttons
+// Get references to all navigation buttons using querySelector
 const introBtnNav = document.querySelector("#intro-btn");
 const habitatBtnNav = document.querySelector("#habitat-btn");
 const dietBtnNav = document.querySelector("#diet-btn");
 const gameBtnNav = document.querySelector("#game-btn");
 
+// Create audio objects for navigation sounds
 const clickAudio = new Audio("sounds/Click.mp3");
-const exploreAudio = new Audio("sounds/LetsGo.mp3"); // Special sound for explores button
+const exploreAudio = new Audio("sounds/LetsGo.mp3"); // Special sound for explore button
 
-
-// Target all pages
+// Get all page elements using querySelectorAll (returns NodeList)
 const allPages = document.querySelectorAll(".page");
 
-// Target the explore button on intro page
+// Get the special explore button on intro page
 const exploreBtn = document.querySelector("#explore-btn");
 
-// Function to hide all pages
+// Function to hide all pages by changing display and removing active class
 function hideAllPages() {
+    // Loop through all pages using for...of
     for(let onePage of allPages) {
-        onePage.style.display = "none";
-        onePage.classList.remove("active-page");
+        onePage.style.display = "none"; // Hide page using CSS display property
+        onePage.classList.remove("active-page"); // Remove active CSS class
     }
 }
 
-// Function to show selected page
+// Function to show selected page by ID and update navigation
 function showPage(pageId) {
-    hideAllPages(); // Hide everything first
+    hideAllPages(); // Hide all pages first
     
-    // Show the selected page
+    // Select and show the target page using string concatenation
     let selectedPage = document.querySelector("#" + pageId);
-    selectedPage.style.display = "block";
-    selectedPage.classList.add("active-page");
+    selectedPage.style.display = "block"; // Make page visible
+    selectedPage.classList.add("active-page"); // Add active CSS class for animations
     
-    // Update navigation button styles
+    // Update which navigation button appears active
     updateNavButtons(pageId);
 }
 
-// Function to update which navigation button looks "active"
+// Function to update navigation button states using conditional logic
 function updateNavButtons(activePageId) {
-    // Remove active class from all nav buttons
-    document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.classList.remove("active");
+    // Remove active class from all navigation buttons using forEach
+    document.querySelectorAll(".nav-btn").forEach(function(btn) {
+        btn.classList.remove("active"); // Remove active styling from all buttons
     });
     
-    // Add active class to correct button
+    // Add active class to correct button using if/else conditions
     if(activePageId === "intro-page") {
         introBtnNav.classList.add("active");
     } else if(activePageId === "habitat-page") {
@@ -58,10 +59,12 @@ function updateNavButtons(activePageId) {
     }
 }
 
-// Event listeners for navigation WITH regular click sounds
+// === NAVIGATION EVENT LISTENERS ===
+
+// Add click event listeners to navigation buttons using addEventListener
 introBtnNav.addEventListener("click", function() {
-    playClickSound(); 
-    showPage("intro-page");
+    playClickSound(); // Play navigation sound
+    showPage("intro-page"); // Switch to intro page
 });
 
 habitatBtnNav.addEventListener("click", function() {
@@ -79,58 +82,58 @@ gameBtnNav.addEventListener("click", function() {
     showPage("game-page");
 });
 
-// Event listener for the SPECIAL "Start Exploring" button WITH unique sound
+// Special event listener for explore button with different sound
 exploreBtn.addEventListener("click", function() {
-    playExploreSound(); 
-    showPage("habitat-page");
+    playExploreSound(); // Play special sound
+    showPage("habitat-page"); // Go to habitat page
 });
+
+// === AUDIO FUNCTIONS ===
 
 // Function to play regular navigation click sound
 function playClickSound() {
-    clickAudio.currentTime = 0; // Reset to start
-    clickAudio.play().then(() => {
-        console.log("Playing navigation click sound");
-    }).catch(error => {
-        console.log("Could not play click sound:", error);
-    });
+    clickAudio.currentTime = 0; // Reset audio to beginning
+    clickAudio.play(); // Play the audio file
+    console.log("Playing navigation click sound"); // Debug message
 }
 
 // Function to play special explore sound
 function playExploreSound() {
-    exploreAudio.currentTime = 0; // Reset to start
-    exploreAudio.play().then(() => {
-        console.log("Playing special explore sound - Let's Go!");
-    }).catch(error => {
-        console.log("Could not play explore sound:", error);
-    });
+    exploreAudio.currentTime = 0; // Reset audio to beginning
+    exploreAudio.play(); // Play the special sound
+    console.log("Playing special explore sound - Let's Go!"); // Debug message
 }
 
-// Initialize - hide all pages except intro on page load
+// === PAGE INITIALIZATION ===
+
+// Initialize the app - hide all pages and show intro page on load
 hideAllPages();
 showPage("intro-page");
 
-// ===== ENHANCED CROCODILE SOUNDS SECTION =====
-// Variables for the new sound experience
-let soundsPlayed = new Set(); // Track which sounds have been played
-const totalSounds = 3;
+// === CROCODILE SOUNDS SYSTEM ===
 
-// Get the enhanced sound elements
+// Variables for tracking sound experience using Set data structure
+let soundsPlayed = new Set(); // Set automatically prevents duplicates
+const totalSounds = 3; // Total number of available sounds
+
+// Get DOM elements for sound interface using querySelector
 const growlBtn = document.querySelector("#growl-btn");
 const hissBtn = document.querySelector("#hiss-btn");
 const snapBtn = document.querySelector("#snap-btn");
 
+// Get elements for sound experience tracking
 const soundCounter = document.querySelector("#sound-counter");
 const progressFill = document.querySelector("#progress-fill");
 const encourageText = document.querySelector("#encourage-text");
 
-// Audio objects (keep your existing audio files)
+// Create audio objects for crocodile sounds
 const growlAudio = new Audio("sounds/CrocGrowl.mp3");
 const hissAudio = new Audio("sounds/CrocHiss.mp3");
 const snapAudio = new Audio("sounds/CrocChomp.mp3");
 
-// Enhanced sound playing functions
+// Wrapper functions for each sound type
 function playGrowlSound() {
-    playSound('growl', growlAudio, growlBtn);
+    playSound('growl', growlAudio, growlBtn); // Call main sound function
 }
 
 function playHissSound() {
@@ -141,125 +144,129 @@ function playSnapSound() {
     playSound('snap', snapAudio, snapBtn);
 }
 
-// Main sound playing function with enhanced features
+// Main sound playing function with visual feedback and tracking
 function playSound(soundName, audioObject, buttonElement) {
-    // Add to played sounds set
+    // Add sound to played set for tracking using Set.add()
     soundsPlayed.add(soundName);
     
-    // Update button appearance
-    buttonElement.classList.add('playing');
+    // Update button appearance using classList.add()
+    buttonElement.classList.add('playing'); // CSS class triggers visual changes
     
-    // Play the audio
+    // Play the audio file
     audioObject.currentTime = 0; // Reset to start
-    audioObject.play().then(() => {
-        console.log(`Playing ${soundName} sound`);
-    }).catch(error => {
-        console.log(`Could not play ${soundName} sound:`, error);
-    });
+    audioObject.play(); // Play audio
+    console.log(`Playing ${soundName} sound`); // Template literal for dynamic message
     
-    // Handle when sound ends
+    // Set up event handler for when sound ends using onended property
     audioObject.onended = function() {
-        buttonElement.classList.remove('playing');
-        // Don't add 'played' class - just return to original state
+        buttonElement.classList.remove('playing'); // Remove playing state
     };
     
-    // Remove playing class after 3 seconds (fallback)
-    setTimeout(() => {
-        buttonElement.classList.remove('playing');
-        // Don't add 'played' class - just return to original state
+    // Fallback timer using setTimeout in case onended doesn't fire
+    setTimeout(function() {
+        buttonElement.classList.remove('playing'); // Remove playing state after 3 seconds
     }, 3000);
     
-    // Update experience immediately
+    // Update the sound experience display immediately
     updateSoundExperience();
 }
 
-// Update the sound experience display
+// Function to update sound experience UI based on progress
 function updateSoundExperience() {
-    const playedCount = soundsPlayed.size;
-    const percentage = (playedCount / totalSounds) * 100;
+    const playedCount = soundsPlayed.size; // Get count from Set
+    const percentage = (playedCount / totalSounds) * 100; // Calculate percentage
     
-    // Update counter text
+    // Update counter text using template literal
     soundCounter.innerText = `Sounds explored: ${playedCount}/${totalSounds}`;
     
-    // Update progress bar
+    // Update progress bar width using CSS style property
     progressFill.style.width = percentage + '%';
     
-    // Update encourage text based on progress
+    // Update encouragement text based on progress using conditional logic
     if (playedCount === 0) {
         encourageText.innerText = "Try listening to all three crocodile sounds!";
-        encourageText.style.color = "#666";
+        encourageText.style.color = "#666"; // Gray color
     } else if (playedCount === 1) {
         encourageText.innerText = "Great start! Listen to the other sounds too!";
-        encourageText.style.color = "#4a7c59";
+        encourageText.style.color = "#4a7c59"; // Green color
     } else if (playedCount === 2) {
         encourageText.innerText = "Almost there! One more sound to go!";
-        encourageText.style.color = "#2d5016";
+        encourageText.style.color = "#2d5016"; // Dark green
     } else if (playedCount === 3) {
         encourageText.innerText = "🎉 Awesome! You've heard all crocodile sounds!";
-        encourageText.style.color = "#28a745";
-        encourageText.style.fontWeight = "bold";
+        encourageText.style.color = "#28a745"; // Success green
+        encourageText.style.fontWeight = "bold"; // Make text bold
         
-        // Add a little celebration effect
-        setTimeout(() => {
-            encourageText.style.animation = "pulse 0.5s ease-in-out 3";
+        // Add celebration animation using setTimeout for delay
+        setTimeout(function() {
+            encourageText.style.animation = "pulse 0.5s ease-in-out 3"; // CSS animation
         }, 100);
     }
     
-    // Log for debugging
+    // Debug logging using template literal
     console.log(`Sound experience updated: ${playedCount}/${totalSounds} sounds played`);
 }
 
+// === SOUND EVENT LISTENERS ===
 
-
-// Add event listeners for the enhanced sound buttons
+// Add event listeners to sound buttons with conditional checks
 if (growlBtn) growlBtn.addEventListener("click", playGrowlSound);
 if (hissBtn) hissBtn.addEventListener("click", playHissSound);
 if (snapBtn) snapBtn.addEventListener("click", playSnapSound);
 
-// Initialize the sound experience display
+// Initialize sound experience display when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    updateSoundExperience();
+    updateSoundExperience(); // Set initial state
 });
 
-// Optional: Add keyboard support for sound buttons
+// === KEYBOARD SUPPORT ===
+
+// Add keyboard event listener for sound shortcuts using keydown event
 document.addEventListener('keydown', function(event) {
-    if (event.target.tagName === 'BUTTON') return; // Don't interfere with button focus
+    // Don't interfere if user is focused on a button
+    if (event.target.tagName === 'BUTTON') return;
     
+    // Use switch statement to handle different key presses
     switch(event.key) {
         case '1':
-            if (growlBtn) playGrowlSound();
+            if (growlBtn) playGrowlSound(); // Play growl with key 1
             break;
         case '2':
-            if (hissBtn) playHissSound();
+            if (hissBtn) playHissSound(); // Play hiss with key 2
             break;
         case '3':
-            if (snapBtn) playSnapSound();
+            if (snapBtn) playSnapSound(); // Play snap with key 3
             break;
-        
     }
 });
 
-// ===== FORM HANDLING =====
+// === FORM HANDLING ===
+
+// Get form element and add submit event listener
 const feedbackForm = document.querySelector("#feedback-form");
 
 feedbackForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-    alert("Thanks for your feedback!");
+    event.preventDefault(); // Prevent default form submission
+    alert("Thanks for your feedback!"); // Show simple thank you message
 });
 
-// ===== INTERACTIVE CARDS (Event Delegation) =====
+// === INTERACTIVE CARDS (Event Delegation) ===
+
+// Get content grid container for event delegation
 const contentGrid = document.querySelector(".content-grid");
 
+// Use event delegation - one listener on parent handles all card clicks
 contentGrid.addEventListener("click", function(event) {
+    // Find the closest info card using closest() method
     const clickedCard = event.target.closest(".info-card");
     
     if (clickedCard) {
-        // Simple effect - just add/remove a "clicked" class
+        // Toggle clicked state using classList methods and conditional logic
         if (clickedCard.classList.contains("clicked")) {
-            clickedCard.classList.remove("clicked");
+            clickedCard.classList.remove("clicked"); // Remove if already clicked
         } else {
-            // Remove clicked from all cards
-            document.querySelectorAll(".info-card").forEach(card => {
+            // Remove clicked from all cards first using forEach
+            document.querySelectorAll(".info-card").forEach(function(card) {
                 card.classList.remove("clicked");
             });
             // Add clicked to this card
@@ -268,188 +275,159 @@ contentGrid.addEventListener("click", function(event) {
     }
 });
 
-// === SUPER SIMPLE IMAGE OVERLAY - Fresh Approach ===
-// Get the image and container
-const crocImage = document.querySelector("#intro-main-image");
-const imageContainer = document.querySelector("#intro-image-container");
-// Get the habitat page image and container
-const habitatImage = document.querySelector("#habitat-main-image");
-const habitatContainer = document.querySelector("#habitat-image-container");
+// === IMAGE OVERLAY SYSTEM ===
 
-// Get the diet page image and container  
-const dietImage = document.querySelector("#diet-main-image");
+// Get image container elements using querySelector
+const imageContainer = document.querySelector("#intro-image-container");
+const habitatContainer = document.querySelector("#habitat-image-container");
 const dietContainer = document.querySelector("#diet-image-container");
 
-// Variables for overlay timers (like lecture pattern)
+// Variables for overlay timers using let (can be reassigned)
 let overlayTimer;
 let habitatOverlayTimer;
 let dietOverlayTimer;
 
-// Simple toggle function (like your toggleCard functions)
+// Simple toggle function for intro image overlay
 function toggleImageOverlay() {
-    if (imageContainer.classList.contains("zoomed")) {
-        // If open, close it
-        imageContainer.classList.remove("zoomed");
-        console.log("Overlay closed");
+    const container = document.querySelector("#intro-image-container");
+    
+    if (container.classList.contains("zoomed")) {
+        clearTimeout(overlayTimer); // ← Uses overlayTimer
+        container.classList.remove("zoomed");
     } else {
-        // If closed, open it
-        imageContainer.classList.add("zoomed");
-        console.log("Overlay opened");
+        container.classList.add("zoomed");
+        overlayTimer = setTimeout(function() { // ← Sets overlayTimer
+            container.classList.remove("zoomed");
+        }, 5000);
     }
 }
 
-// ONE event listener on the entire container (not just image)
+// Add click event listener to entire image container
 imageContainer.addEventListener("click", function() {
-    toggleImageOverlay();
+    toggleImageOverlay(); // Call toggle function
 });
 
-// Habitat page overlay toggle function (same pattern as intro)
+// Habitat page overlay with auto-close timer
 function toggleHabitatOverlay() {
     if (habitatContainer.classList.contains("zoomed")) {
-        // Closing - clear timer (like lecture clearTimeout example)
+        // Closing - clear the timeout using clearTimeout()
         clearTimeout(habitatOverlayTimer);
         habitatContainer.classList.remove("zoomed");
         console.log("Habitat overlay closed - timer cleared");
     } else {
-        // Opening - start timer (exact lecture pattern)
+        // Opening - start auto-close timer using setTimeout()
         habitatContainer.classList.add("zoomed");
         console.log("Habitat overlay opened - starting timer");
         
-        // setTimeout with anonymous function (like lecture Example 12a)
+        // Set timeout to auto-close after 5 seconds
         habitatOverlayTimer = setTimeout(function() {
             habitatContainer.classList.remove("zoomed");
             console.log("Auto-closed habitat overlay after 5 seconds");
-        }, 5000); // 5 seconds
+        }, 5000); // 5000 milliseconds = 5 seconds
     }
 }
 
-// Diet page overlay toggle function (same pattern as intro)
+// Diet page overlay with auto-close timer (same pattern)
 function toggleDietOverlay() {
     if (dietContainer.classList.contains("zoomed")) {
-        // Closing - clear timer (like lecture clearTimeout example)
-        clearTimeout(dietOverlayTimer);
+        clearTimeout(dietOverlayTimer); // Clear timer
         dietContainer.classList.remove("zoomed");
         console.log("Diet overlay closed - timer cleared");
     } else {
-        // Opening - start timer (exact lecture pattern)
         dietContainer.classList.add("zoomed");
         console.log("Diet overlay opened - starting timer");
         
-        // setTimeout with anonymous function (like lecture Example 12a)
+        // Auto-close timer
         dietOverlayTimer = setTimeout(function() {
             dietContainer.classList.remove("zoomed");
             console.log("Auto-closed diet overlay after 5 seconds");
-        }, 5000); // 5 seconds
+        }, 5000);
     }
 }
 
-// Event listeners for habitat page (like lecture pattern)
+// Add event listeners with conditional checks for existence
 if (habitatContainer) {
     habitatContainer.addEventListener("click", function() {
         toggleHabitatOverlay();
     });
 }
 
-// Event listeners for diet page (like lecture pattern)
 if (dietContainer) {
     dietContainer.addEventListener("click", function() {
         toggleDietOverlay();
     });
 }
 
+// === HAMBURGER MENU SYSTEM ===
 
-// === HAMBURGER MENU JAVASCRIPT (Exact Lecture Pattern) ===
-
-// Get hamburger button and menu list (like lecture)
+// Get hamburger menu elements using querySelector
 const hamIcon = document.querySelector("#hamIcon");
 const menuItemsList = document.querySelector(".nav-buttons");
 
-// Toggle menu function (exact same as lecture toggleMenus)
+// Toggle menu function using classList.toggle() and conditional logic
 function toggleMenus() {
-    // Toggle menuShow class (like lecture)
+    // Toggle the menuShow class using toggle() method
     menuItemsList.classList.toggle("menuShow");
     
-    // Change button text based on menu state (like lecture)
+    // Change button text based on menu state using innerHTML property
     if (menuItemsList.classList.contains("menuShow")) {
-        hamIcon.innerHTML = "✕ Close Menu"; // Change to close
+        hamIcon.innerHTML = "✕ Close Menu"; // Show close text
     } else {
-        hamIcon.innerHTML = "☰ Menu"; // Change back to open
+        hamIcon.innerHTML = "☰ Menu"; // Show open text
     }
 }
 
-// Add event listener to hamburger icon (like lecture)
+// Add click event listener to hamburger icon
 hamIcon.addEventListener("click", toggleMenus);
 
-// Close menu when navigation button is clicked (good UX)
+// Function to close menu after navigation (better UX on mobile)
 function closeMenuOnNavigate() {
-    if (window.innerWidth <= 800) { // Only on mobile
-        menuItemsList.classList.remove("menuShow");
-        hamIcon.innerHTML = "☰ Menu";
+    // Only close on mobile screens using window.innerWidth
+    if (window.innerWidth <= 800) {
+        menuItemsList.classList.remove("menuShow"); // Hide menu
+        hamIcon.innerHTML = "☰ Menu"; // Reset button text
     }
 }
 
-// Updated hamburger menu navigation WITH click sounds
+// Update navigation event listeners to include menu closing
+// Note: These duplicate the earlier listeners but add menu closing functionality
 introBtnNav.addEventListener("click", function() {
-    playClickSound(); // Regular click sound
+    playClickSound();
     showPage("intro-page");
-    closeMenuOnNavigate(); // Close menu after navigation
+    closeMenuOnNavigate(); // Close mobile menu after navigation
 });
 
 habitatBtnNav.addEventListener("click", function() {
-    playClickSound(); // Regular click sound
+    playClickSound();
     showPage("habitat-page");
     closeMenuOnNavigate();
 });
 
 dietBtnNav.addEventListener("click", function() {
-    playClickSound(); // Regular click sound
+    playClickSound();
     showPage("diet-page");
     closeMenuOnNavigate();
 });
 
 gameBtnNav.addEventListener("click", function() {
-    playClickSound(); // Regular click sound
+    playClickSound();
     showPage("game-page");
     closeMenuOnNavigate();
 });
 
-// Updated toggle function with setTimeout (like lecture Example 12a)
-function toggleImageOverlay() {
-    const container = document.querySelector("#intro-image-container");
-    
-    if (container.classList.contains("zoomed")) {
-        // Closing - clear timer (like lecture clearTimeout example)
-        clearTimeout(overlayTimer);
-        container.classList.remove("zoomed");
-        console.log("Overlay closed - timer cleared");
-    } else {
-        // Opening - start timer (exact lecture pattern)
-        container.classList.add("zoomed");
-        console.log("Overlay opened - starting timer");
-        
-        // setTimeout with anonymous function (like lecture Example 12a)
-        overlayTimer = setTimeout(function() {
-            container.classList.remove("zoomed");
-            console.log("Auto-closed overlay after 10 seconds");
-        }, 5000); // 10 seconds (10000ms)
-    }
-}
+// === CROCODILE HUNTER GAME ===
 
+// Game state variables using let (mutable) and const (immutable)
+let huntActive = false; // Boolean to track if game is running
+let fishCaught = 0; // Counter for successful catches
+let fishMissed = 0; // Counter for escaped fish
+let gameTimeLeft = 30; // Countdown timer in seconds
+let fishCount = 0; // Total fish spawned counter
+const maxFishCaught = 5; // Win condition (constant)
+let gameTimer; // Will store setInterval ID
+let spawnTimer; // Will store setInterval ID for fish spawning
 
-// === CROCODILE HUNTER GAME (Fixed Version) ===
-// Replace the entire hunter game section in your main.js with this fixed version
-
-// Game variables
-let huntActive = false;
-let fishCaught = 0;
-let fishMissed = 0;
-let gameTimeLeft = 30;
-let fishCount = 0;
-const maxFishCaught = 5;
-let gameTimer;
-let spawnTimer;
-
-// Get game elements
+// Get game DOM elements using querySelector
 const startHuntBtn = document.querySelector("#start-hunt");
 const resetHuntBtn = document.querySelector("#reset-hunt");
 const huntingGround = document.querySelector("#hunting-ground");
@@ -460,192 +438,193 @@ const gameTimerDisplay = document.querySelector("#game-timer");
 const huntResults = document.querySelector("#hunt-results");
 const instructionsOverlay = document.querySelector(".game-instructions-overlay");
 
-// Results elements
+// Game results display elements
 const finalCaught = document.querySelector("#final-caught");
 const finalMissed = document.querySelector("#final-missed");
 const huntingRating = document.querySelector("#hunting-rating");
 
-// Random number function (exact lecture pattern)
+// Random number generator function using Math.random() and Math.round()
 function GetRandom(min, max) {
     return Math.round(Math.random() * (max - min)) + min;
 }
 
-// Start Hunt Game
+// Function to start the hunting game
 function startHunt() {
-    // Reset variables
+    // Reset all game variables to initial state
     huntActive = true;
     fishCaught = 0;
     fishMissed = 0;
     gameTimeLeft = 30;
     fishCount = 0;
     
-    // Update UI
-    startHuntBtn.style.display = "none";
-    resetHuntBtn.style.display = "none";
-    huntResults.style.display = "none";
-    instructionsOverlay.style.display = "none";
+    // Update UI elements using style.display property
+    startHuntBtn.style.display = "none"; // Hide start button
+    resetHuntBtn.style.display = "none"; // Hide reset button
+    huntResults.style.display = "none"; // Hide results
+    instructionsOverlay.style.display = "none"; // Hide instructions
     
-    // Update displays
+    // Update game displays
     updateGameDisplay();
     gameInstruction.innerText = "🐊 Hunt in progress! Click the moving fish!";
     
-    // Start game timer (countdown)
+    // Start game timer using setInterval() - runs every 1000ms (1 second)
     gameTimer = setInterval(updateGameTimer, 1000);
     
-    // Start spawning fish
+    // Start fish spawning using setInterval() - spawns every 2000ms (2 seconds)
     spawnTimer = setInterval(spawnFish, 2000);
     
     // Spawn first fish immediately
     spawnFish();
 }
 
-// Update game timer
+// Function to update game timer countdown
 function updateGameTimer() {
-    gameTimeLeft--;
-    gameTimerDisplay.innerText = "Time: " + gameTimeLeft + "s";
+    gameTimeLeft--; // Decrement timer
+    gameTimerDisplay.innerText = "Time: " + gameTimeLeft + "s"; // Update display
     
+    // Check end conditions using logical OR operator
     if (gameTimeLeft <= 0 || fishCaught >= maxFishCaught) {
-        endHunt();
+        endHunt(); // End game if time up or won
     }
 }
 
-// Spawn moving fish
+// Function to create and spawn moving fish
 function spawnFish() {
-    if (!huntActive) return;
+    if (!huntActive) return; // Exit if game not active
     
-    fishCount++;
+    fishCount++; // Increment fish counter
     
-    // Create fish element
-    //dynamically create a fish
+    // Create new fish element using createElement()
     const fish = document.createElement('div');
-    fish.className = 'fish';
-    fish.innerHTML = '🐟';
+    fish.className = 'fish'; // Set CSS class
+    fish.innerHTML = '🐟'; // Set emoji content
     
-    // Starting position
+    // Determine starting side using random number
     const startingSide = GetRandom(0, 1);
-    let fishX, fishY, velX, velY;
+    let fishX, fishY, velX, velY; // Variables for position and velocity
     
+    // Set starting position and velocity based on side using conditional logic
     if (startingSide === 0) {
-        // Start from left
-        fishX = -50;
-        fishY = GetRandom(20, 250);
-        velX = GetRandom(2, 5);
-        velY = GetRandom(-1, 1);
+        // Start from left side
+        fishX = -50; // Start off-screen left
+        fishY = GetRandom(20, 250); // Random Y position
+        velX = GetRandom(2, 5); // Positive X velocity (move right)
+        velY = GetRandom(-1, 1); // Random Y velocity
     } else {
-        // Start from right
-        fishX = huntingGround.offsetWidth + 10;
+        // Start from right side
+        fishX = huntingGround.offsetWidth + 10; // Start off-screen right
         fishY = GetRandom(20, 250);
-        velX = GetRandom(-5, -2);
+        velX = GetRandom(-5, -2); // Negative X velocity (move left)
         velY = GetRandom(-1, 1);
     }
     
-    // Set initial position
+    // Set initial CSS position using style properties
     fish.style.left = fishX + "px";
     fish.style.top = fishY + "px";
-    fish.style.position = "absolute";
+    fish.style.position = "absolute"; // Required for free positioning
     
-    // Add click event
+    // Add click event listener to fish using addEventListener
     fish.addEventListener("click", function() {
-        catchFish(fish);
+        catchFish(fish); // Call catch function when clicked
     });
     
-    // Add to hunting ground
+    // Add fish to hunting ground using appendChild()
     huntingGround.appendChild(fish);
     
-    // Store movement data on the element itself (simple approach)
-    fish.fishX = fishX;
-    fish.fishY = fishY;
-    fish.velX = velX;
-    fish.velY = velY;
+    // Store movement data as custom properties on the element
+    fish.fishX = fishX; // Custom property for X position
+    fish.fishY = fishY; // Custom property for Y position
+    fish.velX = velX; // Custom property for X velocity
+    fish.velY = velY; // Custom property for Y velocity
     
-    // Start moving this fish
+    // Start moving this fish using setInterval for animation
     const moveInterval = setInterval(function() {
-        moveFish(fish, moveInterval);
-    }, 50);
+        moveFish(fish, moveInterval); // Call move function repeatedly
+    }, 50); // 50ms intervals for smooth movement
 }
 
-// Move fish across screen (FIXED VERSION)
+// Function to move fish across screen using custom properties
 function moveFish(fishElement, moveInterval) {
     if (!huntActive) {
-        clearInterval(moveInterval);
+        clearInterval(moveInterval); // Stop movement if game ended
         return;
     }
     
-    // Update position using stored values
-    fishElement.fishX += fishElement.velX;
+    // Update position using stored velocity values
+    fishElement.fishX += fishElement.velX; // Add velocity to position
     fishElement.fishY += fishElement.velY;
     
-    // Update CSS position
+    // Update CSS position using style properties
     fishElement.style.left = fishElement.fishX + "px";
     fishElement.style.top = fishElement.fishY + "px";
     
-    // Check if fish escaped
+    // Check if fish escaped off screen using boundary conditions
     const groundWidth = huntingGround.offsetWidth;
     if (fishElement.fishX < -60 || fishElement.fishX > groundWidth + 60) {
-        // Fish escaped!
-        fishMissed++;
-        updateGameDisplay();
+        // Fish escaped - update counters and remove
+        fishMissed++; // Increment missed counter
+        updateGameDisplay(); // Update UI
         
-        // Remove fish
-        fishElement.remove();
-        clearInterval(moveInterval);
+        fishElement.remove(); // Remove from DOM using remove()
+        clearInterval(moveInterval); // Stop movement timer
         
         console.log("Fish escaped! Missed: " + fishMissed);
     }
     
-    // Boundary bouncing for Y axis
+    // Boundary bouncing for Y axis using conditional logic
     if (fishElement.fishY <= 10 || fishElement.fishY >= 260) {
-        fishElement.velY = -fishElement.velY;
+        fishElement.velY = -fishElement.velY; // Reverse Y velocity
     }
 }
 
-// Catch fish function
+// Function to handle fish catching
 function catchFish(fishElement) {
-    if (!huntActive) return;
+    if (!huntActive) return; // Exit if game not active
     
-    // Add caught animation
-    fishElement.classList.add('caught');
+    // Add caught animation using classList.add()
+    fishElement.classList.add('caught'); // CSS animation will trigger
     
     // Update score
-    fishCaught++;
-    updateGameDisplay();
+    fishCaught++; // Increment caught counter
+    updateGameDisplay(); // Update UI display
     
-    // Remove element after animation
+    // Remove fish after animation using setTimeout()
     setTimeout(function() {
-        fishElement.remove();
-    }, 500);
+        fishElement.remove(); // Remove from DOM after delay
+    }, 500); // 500ms delay for animation
     
     console.log("Fish caught! Total: " + fishCaught + "/" + maxFishCaught);
     
     // Check win condition
     if (fishCaught >= maxFishCaught) {
         setTimeout(function() {
-            endHunt();
+            endHunt(); // End game after brief delay
         }, 500);
     }
 }
 
-// Update game display
+// Function to update game display counters
 function updateGameDisplay() {
+    // Update display text using innerText property
     fishCaughtDisplay.innerText = "Fish Caught: " + fishCaught + "/" + maxFishCaught;
     fishMissedDisplay.innerText = "Fish Missed: " + fishMissed;
 }
 
-// End hunt and show results (FIXED VERSION)
+// Function to end hunt and show results
 function endHunt() {
-    huntActive = false;
+    huntActive = false; // Set game as inactive
     
-    // Clear all timers
-    clearInterval(gameTimer);
-    clearInterval(spawnTimer);
+    // Clear all timers using clearInterval()
+    clearInterval(gameTimer); // Stop countdown timer
+    clearInterval(spawnTimer); // Stop fish spawning
     
-    // Remove all remaining fish (FIXED)
+    // Remove all remaining fish using querySelectorAll and loop
     const allFish = document.querySelectorAll('.fish');
     for (let i = 0; i < allFish.length; i++) {
-        allFish[i].remove();
+        allFish[i].remove(); // Remove each fish from DOM
     }
     
-    // Calculate results
+    // Calculate rating based on performance using conditional logic
     let rating = "";
     
     if (fishCaught >= 5) {
@@ -658,39 +637,39 @@ function endHunt() {
         rating = "🐌 Patient Observer (Crocodiles wait too!)";
     }
     
-    // Update results display
+    // Update results display using innerText
     finalCaught.innerText = "Fish Caught: " + fishCaught + "/" + maxFishCaught;
     finalMissed.innerText = "Fish Missed: " + fishMissed;
     huntingRating.innerText = rating;
     
-    // Show results and reset button
+    // Show results and reset button using style.display
     huntResults.style.display = "block";
     resetHuntBtn.style.display = "inline-block";
     
-    // Update instruction
+    // Update instruction text
     gameInstruction.innerText = "🎯 Hunt Complete! Check your results below.";
 }
 
-// Reset hunt function
+// Function to reset game to initial state
 function resetHunt() {
     // Clear any remaining timers
     clearInterval(gameTimer);
     clearInterval(spawnTimer);
     
-    // Remove all fish
+    // Remove all fish using querySelectorAll and loop
     const allFish = document.querySelectorAll('.fish');
     for (let i = 0; i < allFish.length; i++) {
         allFish[i].remove();
     }
     
-    // Reset variables
+    // Reset all variables to initial values
     huntActive = false;
     fishCaught = 0;
     fishMissed = 0;
     gameTimeLeft = 30;
     fishCount = 0;
     
-    // Reset UI
+    // Reset UI elements using style.display
     huntResults.style.display = "none";
     startHuntBtn.style.display = "inline-block";
     resetHuntBtn.style.display = "none";
@@ -704,46 +683,49 @@ function resetHunt() {
     console.log("Hunt reset");
 }
 
-// Event listeners
+// === GAME EVENT LISTENERS ===
+
+// Add event listeners to game buttons with conditional checks
 if (startHuntBtn) startHuntBtn.addEventListener("click", startHunt);
 if (resetHuntBtn) resetHuntBtn.addEventListener("click", resetHunt);
 
-// Initialize display
+// Initialize game display on page load
 updateGameDisplay();
 
+// === FULLSCREEN FUNCTIONALITY ===
 
-// === DESKTOP FULL-SCREEN FUNCTIONALITY (Week 14 - Lecturer Code) ===
-
-// Get full-screen buttons (exact lecturer pattern)
+// Get fullscreen buttons using querySelector
 const btnFS = document.querySelector("#btnFS");
 const btnWS = document.querySelector("#btnWS");
 
-// Add event listeners (exact lecturer pattern)
+// Add event listeners for fullscreen buttons
 btnFS.addEventListener("click", enterFullscreen);
 btnWS.addEventListener("click", exitFullscreen);
 
-// Enter full-screen function (exact lecturer code with full browser support)
-function enterFullscreen() { // must be called by user generated event
+// Function to enter fullscreen mode with cross-browser support
+function enterFullscreen() {
+    // Check for different browser implementations using conditional logic
     if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-        document.documentElement.mozRequestFullScreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-        document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-        document.documentElement.msRequestFullscreen();
+        document.documentElement.requestFullscreen(); // Standard
+    } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen(); // Firefox
+    } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen(); // Chrome, Safari, Opera
+    } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen(); // Internet Explorer/Edge
     }
 }
 
-// Exit full-screen function (exact lecturer code with full browser support)
+// Function to exit fullscreen mode with cross-browser support
 function exitFullscreen() {
+    // Check for different browser implementations
     if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) { // Firefox
-        document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) { // Chrome, Safari, and Opera
-        document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { // IE/Edge
-        document.msExitFullscreen();
+        document.exitFullscreen(); // Standard
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen(); // Firefox
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen(); // Chrome, Safari, Opera
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen(); // Internet Explorer/Edge
     }
 }
