@@ -1042,9 +1042,37 @@ form button {
         text-align: center;
     }
 
-    /* Center form on mobile */
+    /* === MOBILE FORM FIXES === */
     form {
         text-align: center;
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    input[type="text"],
+    input[type="email"], 
+    input[type="number"],
+    select,
+    textarea {
+        width: 100%;
+        max-width: 300px;
+        min-width: 200px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+    }
+
+    form p {
+        word-wrap: break-word;
+        text-align: center;
+    }
+
+    form label {
+        display: block;
+        margin: 8px 0;
+        word-wrap: break-word;
     }
 
     /* === MOBILE IMAGE OVERLAY ADJUSTMENTS === */
@@ -1283,6 +1311,6 @@ form button {
 
     /* Hide fullscreen buttons on mobile using !important to override */
     #btnFS, #btnWS {
-        display: none !important;
+        display: none;
     }
 }
