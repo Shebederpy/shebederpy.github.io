@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" type="image/jpeg" href="images/CrocApp.jpg">
+<link rel="manifest" href="manifest.json" />
     <title>All About Crocodiles</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,10 +21,14 @@
         
         <!-- Navigation buttons (will be hidden on mobile) -->
         <ul class="nav-buttons">
-            <li><button id="intro-btn" class="nav-btn active">Introduction</button></li>
-            <li><button id="habitat-btn" class="nav-btn">Habitats</button></li>
-            <li><button id="diet-btn" class="nav-btn">Diet</button></li>
-            <li><button id="game-btn" class="nav-btn">Games ++</button></li>
+            <ul class="nav-buttons">
+                <li><button id="intro-btn" class="nav-btn active">Introduction</button></li>
+                <li><button id="habitat-btn" class="nav-btn">Habitats</button></li>
+                <li><button id="diet-btn" class="nav-btn">Diet</button></li>
+                <li><button id="game-btn" class="nav-btn">Games ++</button></li>
+                <li><button id="btnFS" class="nav-btn">Fullscreen</button></li>
+                <li><button id="btnWS" class="nav-btn">Exit Fullscreen</button></li>
+            </ul>
         </ul>
     </nav>
 
@@ -348,11 +357,13 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Form (keep existing) -->
+
+           <!-- Simple form -->
             <div class="fun-facts">
                 <h3>📝 Did You Learn Something New?</h3>
                 <form id="feedback-form">
+                    
+                    <!-- Original Radio Buttons -->
                     <p>Rate this learning experience:</p>
                     <input type="radio" id="great" name="rating" value="great">
                     <label for="great">🐊 Great!</label><br>
@@ -363,6 +374,47 @@
                     <input type="radio" id="okay" name="rating" value="okay">
                     <label for="okay">👌 Okay</label><br>
                     
+                    <!-- Text Input -->
+                    <p>Your Name (optional):</p>
+                    <input type="text" id="visitor-name" name="name" placeholder="Enter your name"><br>
+                    
+                    <!-- Email Input -->
+                    <p>Email (optional):</p>
+                    <input type="email" id="visitor-email" name="email" placeholder="your.email@example.com"><br>
+                    
+                    <!-- Number Input -->
+                    <p>Your Age (optional):</p>
+                    <input type="number" id="visitor-age" name="age" min="5" max="100" placeholder="25"><br>
+                    
+                    <!-- Range Slider -->
+                    <p>How much did you know about crocodiles before? (1-5):</p>
+                    <input type="range" id="knowledge-level" name="knowledge" min="1" max="5" value="3"><br>
+                    
+                    <!-- Checkboxes -->
+                    <p>Which features did you like? (Check all that apply):</p>
+                    <input type="checkbox" id="sounds" name="features" value="sounds">
+                    <label for="sounds">🔊 Crocodile Sounds</label><br>
+                    
+                    <input type="checkbox" id="game" name="features" value="game">
+                    <label for="game">🎯 Hunter Game</label><br>
+                    
+                    <input type="checkbox" id="facts" name="features" value="facts">
+                    <label for="facts">📚 Fun Facts</label><br>
+                    
+                    <!-- Dropdown -->
+                    <p>How did you find this site?</p>
+                    <select id="source" name="source">
+                        <option value="">Select an option...</option>
+                        <option value="school">School Assignment</option>
+                        <option value="search">Google Search</option>
+                        <option value="friend">Friend Recommendation</option>
+                        <option value="random">Found by Accident</option>
+                    </select><br>
+                    
+                    <!-- Textarea -->
+                    <p>Any comments?</p>
+                    <textarea id="comments" name="comments" rows="3" cols="40" placeholder="Tell us what you think..."></textarea><br>
+                    
                     <button type="submit" class="cta-button">Submit Feedback</button>
                 </form>
             </div>
@@ -372,6 +424,10 @@
     <!-- Footer -->
     <footer>
         <p>Educational content about crocodiles | Created for WebDev Assignment2</p>
+            <div class="qr-footer">
+                <img src="images/QR.png" alt="QR Code for mobile site">
+                <p>Scan to view on mobile</p>
+            </div>
     </footer>
 
     <script src="main.js"></script>
