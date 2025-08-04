@@ -729,3 +729,29 @@ function exitFullscreen() {
         document.msExitFullscreen(); // Internet Explorer/Edge
     }
 }
+
+// === BACKGROUND AUDIO SYSTEM ===
+
+// Create background audio object that loops continuously
+const backgroundAudio = new Audio("sounds/background.mp3");
+backgroundAudio.loop = true; // Enable looping
+backgroundAudio.volume = 0.3; // Set volume to 30% so it doesn't overpower other sounds
+
+// Variables to track background audio state
+let backgroundPlaying = false;
+
+// Function to start background audio
+function startBackgroundAudio() {
+    if (!backgroundPlaying) {
+        backgroundAudio.play().catch(function(error) {
+            console.log("Background audio blocked by browser:", error);
+        });
+        backgroundPlaying = true;
+        console.log("Background audio started");
+    }
+}
+
+// Add event listener to start background audio on any user interaction
+document.addEventListener('click', function() {
+    startBackgroundAudio(); // Start background audio on first click anywhere
+}, { once: true }); // Only run once
