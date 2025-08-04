@@ -1,5 +1,14 @@
 /* style.css - CSS for Crocodile Education App */
 
+/* === FONTS === */
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* === CSS SPRITES FOR INFO CARD ICONS === */
 
 /* Base sprite class for icon backgrounds */
@@ -44,6 +53,7 @@
 
 /* Reset default browser margins and paddings */
 * {
+    font-family: 'Montserrat', Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Makes padding/border count inside element width */
