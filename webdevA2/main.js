@@ -420,7 +420,7 @@ gameBtnNav.addEventListener("click", function() {
 // Game state variables using let (mutable) and const (immutable)
 let huntActive = false; // Boolean to track if game is running
 let fishCaught = 0; // Counter for successful catches
-let fishMissed = 0; // Counter for escaped fish
+let fishMissed = 0; // Counter for missed clicks (not escaped fish)
 let gameTimeLeft = 30; // Countdown timer in seconds
 let fishCount = 0; // Total fish spawned counter
 const maxFishCaught = 5; // Win condition (constant)
@@ -488,7 +488,7 @@ function updateGameTimer() {
     }
 }
 
-// Function to create and spawn moving fish
+// IMPROVED: Function to create and spawn moving fish with better boundaries
 function spawnFish() {
     if (!huntActive) return; // Exit if game not active
     
@@ -499,23 +499,27 @@ function spawnFish() {
     fish.className = 'fish'; // Set CSS class
     fish.innerHTML = '🐟'; // Set emoji content
     
-    // Determine starting side using random number
-    const startingSide = GetRandom(0, 1);
-    let fishX, fishY, velX, velY; // Variables for position and velocity
+    // FIXED: Better spawning logic - always start from sides and move across
+    const groundWidth = huntingGround.offsetWidth;
+    const groundHeight = huntingGround.offsetHeight;
     
-    // Set starting position and velocity based on side using conditional logic
+    let fishX, fishY, velX, velY;
+    
+    // Randomly choose left or right side
+    const startingSide = GetRandom(0, 1);
+    
     if (startingSide === 0) {
-        // Start from left side
-        fishX = -50; // Start off-screen left
-        fishY = GetRandom(20, 250); // Random Y position
-        velX = GetRandom(2, 5); // Positive X velocity (move right)
-        velY = GetRandom(-1, 1); // Random Y velocity
+        // Start from LEFT side, move RIGHT
+        fishX = -40; // Start just off-screen left
+        fishY = GetRandom(30, groundHeight - 60); // Safe Y range
+        velX = GetRandom(2, 4); // Always move right (positive)
+        velY = GetRandom(-1, 1); // Small Y movement
     } else {
-        // Start from right side
-        fishX = huntingGround.offsetWidth + 10; // Start off-screen right
-        fishY = GetRandom(20, 250);
-        velX = GetRandom(-5, -2); // Negative X velocity (move left)
-        velY = GetRandom(-1, 1);
+        // Start from RIGHT side, move LEFT  
+        fishX = groundWidth + 10; // Start just off-screen right
+        fishY = GetRandom(30, groundHeight - 60); // Safe Y range
+        velX = GetRandom(-4, -2); // Always move left (negative)
+        velY = GetRandom(-1, 1); // Small Y movement
     }
     
     // Set initial CSS position using style properties
@@ -524,7 +528,8 @@ function spawnFish() {
     fish.style.position = "absolute"; // Required for free positioning
     
     // Add click event listener to fish using addEventListener
-    fish.addEventListener("click", function() {
+    fish.addEventListener("click", function(event) {
+        event.stopPropagation(); // Prevent hunting ground click
         catchFish(fish); // Call catch function when clicked
     });
     
@@ -543,7 +548,7 @@ function spawnFish() {
     }, 50); // 50ms intervals for smooth movement
 }
 
-// Function to move fish across screen using custom properties
+// IMPROVED: Function to move fish with better boundary handling
 function moveFish(fishElement, moveInterval) {
     if (!huntActive) {
         clearInterval(moveInterval); // Stop movement if game ended
@@ -558,26 +563,24 @@ function moveFish(fishElement, moveInterval) {
     fishElement.style.left = fishElement.fishX + "px";
     fishElement.style.top = fishElement.fishY + "px";
     
-    // Check if fish escaped off screen using boundary conditions
+    // FIXED: Remove fish when it goes off-screen (but don't count as miss)
     const groundWidth = huntingGround.offsetWidth;
     if (fishElement.fishX < -60 || fishElement.fishX > groundWidth + 60) {
-        // Fish escaped - update counters and remove
-        fishMissed++; // Increment missed counter
-        updateGameDisplay(); // Update UI
-        
-        fishElement.remove(); // Remove from DOM using remove()
+        // Fish escaped - just remove it, DON'T increment missed counter
+        fishElement.remove(); // Remove from DOM
         clearInterval(moveInterval); // Stop movement timer
-        
-        console.log("Fish escaped! Missed: " + fishMissed);
+        console.log("Fish escaped off-screen (no penalty)");
+        return;
     }
     
-    // Boundary bouncing for Y axis using conditional logic
-    if (fishElement.fishY <= 10 || fishElement.fishY >= 260) {
+    // Y-axis boundary bouncing (keep fish in view)
+    const groundHeight = huntingGround.offsetHeight;
+    if (fishElement.fishY <= 20 || fishElement.fishY >= groundHeight - 40) {
         fishElement.velY = -fishElement.velY; // Reverse Y velocity
     }
 }
 
-// Function to handle fish catching
+// Function to handle fish catching (unchanged)
 function catchFish(fishElement) {
     if (!huntActive) return; // Exit if game not active
     
@@ -603,14 +606,30 @@ function catchFish(fishElement) {
     }
 }
 
-// Function to update game display counters
+// NEW: Function to handle missing (clicking empty space)
+function missClick() {
+    if (!huntActive) return;
+    
+    fishMissed++; // Increment miss counter
+    updateGameDisplay(); // Update UI
+    
+    // Visual feedback for miss
+    huntingGround.style.backgroundColor = "#ffcccc"; // Flash red briefly
+    setTimeout(function() {
+        huntingGround.style.backgroundColor = ""; // Reset background
+    }, 200);
+    
+    console.log("Missed click! Total misses: " + fishMissed);
+}
+
+// Function to update game display counters (unchanged)
 function updateGameDisplay() {
     // Update display text using innerText property
     fishCaughtDisplay.innerText = "Fish Caught: " + fishCaught + "/" + maxFishCaught;
     fishMissedDisplay.innerText = "Fish Missed: " + fishMissed;
 }
 
-// Function to end hunt and show results
+// Function to end hunt and show results (unchanged)
 function endHunt() {
     huntActive = false; // Set game as inactive
     
@@ -650,7 +669,7 @@ function endHunt() {
     gameInstruction.innerText = "🎯 Hunt Complete! Check your results below.";
 }
 
-// Function to reset game to initial state
+// Function to reset game to initial state (unchanged)
 function resetHunt() {
     // Clear any remaining timers
     clearInterval(gameTimer);
@@ -688,6 +707,16 @@ function resetHunt() {
 // Add event listeners to game buttons with conditional checks
 if (startHuntBtn) startHuntBtn.addEventListener("click", startHunt);
 if (resetHuntBtn) resetHuntBtn.addEventListener("click", resetHunt);
+
+// NEW: Add miss click handler to hunting ground
+if (huntingGround) {
+    huntingGround.addEventListener("click", function(event) {
+        // Only count as miss if we click the hunting ground itself (not a fish)
+        if (event.target === huntingGround) {
+            missClick();
+        }
+    });
+}
 
 // Initialize game display on page load
 updateGameDisplay();
